@@ -1,3 +1,15 @@
+# Archived!
+
+Turns out, you don't need all of this to accomplish giving different types of links different colors. Here's some sample code for how to accomplish it in Doom with no extra packages:
+
+```elisp
+(after! org
+  (org-link-set-parameters "file" :face `(:inherit org-link :foreground "red2"))
+  (org-link-set-parameters "attachment" :face `(:inherit org-link :foreground "red2"))
+  (org-link-set-parameters "pdf" :face `(:inherit org-link :foreground "red2"))
+  (org-link-set-parameters "id" :face `(:inherit org-link :foreground "DarkOrange2")))
+```
+
 # org-link-colorize
 
 > Change org link color based on link type
