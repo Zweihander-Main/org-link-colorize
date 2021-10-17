@@ -32,8 +32,7 @@ Doom users can try something like the following:
 ```elisp
 (use-package! org-link-colorize
   :after org
-  :init
-  (add-hook! 'org-mode-hook 'org-link-colorize-mode))
+  :hook (org-mode . org-link-colorize-mode))
 ```
 
 ### Customization
