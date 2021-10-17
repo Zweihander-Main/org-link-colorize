@@ -14,6 +14,13 @@ Forked from stardiviner's [org-link-beautify](https://github.com/stardiviner/org
 
 Add `org-link-colorize.el` into your load path.
 
+Doom users can try something like the following:
+
+```elisp
+(package! org-link-colorize
+  :recipe '(:host github :repo "Zweihander-Main/org-link-colorize"))
+```
+
 ### Usage
 
 ```elisp
