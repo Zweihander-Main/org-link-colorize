@@ -81,17 +81,12 @@
   (put-text-property start end 'type 'org-link-colorize))
 
 (defun org-link-colorize--display-not-exist (start end description)
-  "Display error color and ICON on START and END with DESCRIPTION."
+  "Display error color on START and END with DESCRIPTION."
   (put-text-property
    start end
    'display
    (propertize
-    (concat
-     (propertize "[" 'face '(:inherit nil :underline nil :foreground "black"))
-     (propertize description 'face '(:underline t :foreground "red" :strike-through t))
-     (propertize "]" 'face '(:inherit nil :underline nil :foreground "black"))
-     (propertize "(" 'face '(:inherit nil :underline nil :foreground "black"))
-     (propertize ")" 'face '(:inherit nil :underline nil :foreground "black"))))))
+     (propertize description 'face '(:underline t :foreground "red" :strike-through t)))))
 
 (defun org-link-colorize-display (start end path bracket-p)
   "Display icon for the link type based on PATH from START to END."
