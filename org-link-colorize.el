@@ -49,11 +49,6 @@
   :safe #'listp
   :group 'org-link-colorize)
 
-(defcustom org-link-colorize-enable-debug-p nil
-  "Whether enable org-link-colorize will print debug info."
-  :type 'boolean
-  :safe #'booleanp)
-
 (defun org-link-colorize--get-element (position)
   "Return the org element of link at the `POSITION'."
   (save-excursion
@@ -64,36 +59,20 @@
                 (org-at-encrypted-entry-p))
       (org-element-context))))
 
-(defun org-link-colorize--get-link-description-fast (position)
-  "Get the link description at `POSITION' (fuzzy but faster version)."
-  (save-excursion
-    (goto-char position)
-    (and (org-in-regexp org-link-bracket-re) (match-string 2))))
-
-(defun org-link-colorize--warning (path)
-  "Use `org-warning' face if link PATH does not exist."
-  (if (and (not (file-remote-p path))
-           (file-exists-p (expand-file-name path)))
-      'org-link 'org-warning))
-
 (defun org-link-colorize--add-overlay-marker (start end)
-  "Add 'org-link-colorize on link text-property. between START and END."
+  "Add 'org-link-colorize on link text-property between START and END."
   (put-text-property start end 'type 'org-link-colorize))
 
 (defun org-link-colorize--display-not-exist (start end description)
-  "Display error color on START and END with DESCRIPTION."
+  "Display strike-through on START and END with DESCRIPTION."
   (put-text-property
    start end
    'display
    (propertize
-     (propertize description 'face '(:underline t :foreground "red" :strike-through t)))))
+     (propertize description 'face '(:strike-through t)))))
 
 (defun org-link-colorize-display (start end path bracket-p)
   "Display icon for the link type based on PATH from START to END."
-  ;; DEBUG:
-  ;; (message
-  ;;  (format "start: %s, end: %s, path: %s, bracket-p: %s" start end path bracket-p))
-  ;; detect whether link is normal, jump other links in special places.
   (when (eq (car (org-link-colorize--get-element start)) 'link)
     (save-match-data
       (let* ((link-element (org-link-colorize--get-element start))
