@@ -24,7 +24,7 @@ Doom users can try something like the following:
 ### Usage
 
 ```elisp
-(org-link-colorize 1)
+(org-link-colorize-mode 1)
 ```
 
 Doom users can try something like the following:
