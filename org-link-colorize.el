@@ -1,5 +1,7 @@
 ;;; org-link-colorize.el --- Beautify Org Links -*- lexical-binding: t; -*-
 
+;; Forked from https://github.com/stardiviner/org-link-beautify
+;; Copyright (C) stardiviner
 ;; Copyright (C) 2021, Zweihänder <zweidev@zweihander.me>
 ;;
 ;; Authors: Zwehänder

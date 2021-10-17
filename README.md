@@ -1,18 +1,37 @@
 # org-link-colorize
 
->
+> Change org link color based on link type
 
 ## Overview
 
+Want to tell the difference between `file:` and `https:` links in Org? Using `org-roam` and want to give `id:` links their own color? This package allows you to do just that!
+
+Forked from stardiviner's [org-link-beautify](https://github.com/stardiviner/org-link-beautify) -- check it out if you want something a bit more substantial than just colors.
+
 ## Usage
 
-```elisp
-(defcustom org-link-colorize-exclude-modes '(org-agenda-mode)
-  "A list of excluded major modes which wouldn't enable `org-link-colorize'."
-  :type 'list
-  :safe #'listp
-  :group 'org-link-colorize)
+### Install
 
+Add `org-link-colorize.el` into your load path.
+
+### Usage
+
+```elisp
+(org-link-colorize 1)
+```
+
+Doom users can try something like the following:
+
+```elisp
+(use-package! org-link-colorize
+  :after org
+  :init
+  (add-hook! 'org-mode-hook 'org-link-colorize-mode))
+```
+
+### Customization
+
+```elisp
 (defcustom org-link-colorize-link-colors '(("file" . "orange")
                                            ("attachment" . "orange")
                                            ("pdf" . "orange")
@@ -36,7 +55,13 @@ CAR and the foreground color as the CDR. Foreground color can be obtained using
   :group 'org-link-colorize)
 ```
 
-## Possible future improvements
+```elisp
+(defcustom org-link-colorize-exclude-modes '(org-agenda-mode)
+  "A list of excluded major modes which wouldn't enable `org-link-colorize'."
+  :type 'list
+  :safe #'listp
+  :group 'org-link-colorize)
+```
 
 ## Available for Hire
 
@@ -50,4 +75,13 @@ hi [a+] zweisolutions {●} com
 
 ## License
 
-TODO: Note forked.
+Forked from [org-link-beautify](https://github.com/stardiviner/org-link-beautify).
+
+[GPLv3](./LICENSE)
+
+    org-link-colorize
+    Copyright (C) stardiviner
+    Copyright (C) 2021 Zweihänder
+    This program comes with ABSOLUTELY NO WARRANTY; for details type `show w'.
+    This is free software, and you are welcome to redistribute it
+    under certain conditions; type `show c' for details.
