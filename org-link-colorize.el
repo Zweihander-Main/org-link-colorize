@@ -63,6 +63,14 @@
   "Add 'org-link-colorize on link text-property between START and END."
   (put-text-property start end 'type 'org-link-colorize))
 
+(defun org-link-colorize--add-color (start end description color)
+  "Change to COLOR between START and END with DESCRIPTION."
+  (put-text-property
+   start end
+   'display
+   (propertize
+    (propertize description 'face `(:foreground ,color)))))
+
 (defun org-link-colorize--display-not-exist (start end description)
   "Display strike-through on START and END with DESCRIPTION."
   (put-text-property
@@ -89,6 +97,9 @@
          ((and (equal type "file") (not (file-exists-p path)))
           (org-link-colorize--add-overlay-marker start end)
           (org-link-colorize--display-not-exist start end description))
+         ((equal type "id")
+          (org-link-colorize--add-overlay-marker start end)
+          (org-link-colorize--add-color start end description "blue"))
          (t
           (org-link-colorize--add-overlay-marker start end)))))))
 
