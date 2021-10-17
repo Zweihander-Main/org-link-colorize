@@ -77,7 +77,7 @@
    start end
    'display
    (propertize
-     (propertize description 'face '(:strike-through t)))))
+    (propertize description 'face '(:strike-through t)))))
 
 (defun org-link-colorize-display (start end path bracket-p)
   "Display icon for the link type based on PATH from START to END."
@@ -125,8 +125,8 @@
                  (get-text-property point 'display)
                  (eq (get-text-property point 'type) 'org-link-colorize))
         (remove-text-properties
-	     point (setq point (next-single-property-change point 'display))
-	     '(display t))))
+	 point (setq point (next-single-property-change point 'display))
+	 '(display t))))
     (set-buffer-modified-p bmp)))
 
 (defun org-link-colorize-clear (&optional state)
