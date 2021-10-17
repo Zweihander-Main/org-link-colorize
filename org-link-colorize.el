@@ -49,6 +49,28 @@
   :safe #'listp
   :group 'org-link-colorize)
 
+(defcustom org-link-colorize-link-colors '(("file" . "orange")
+                                           ("attachment" . "orange")
+                                           ("pdf" . "orange")
+                                           ("http" . "blue")
+                                           ("https" . "blue")
+                                           ("ftp" . "blue")
+                                           ("telnet" . "blue")
+                                           ("rss" . "blue")
+                                           ("elfeed" . "blue")
+                                           ("wikipedia" . "blue")
+                                           ("mailto" . "blue")
+                                           ("irc" . "blue")
+                                           ("doi" . "blue")
+                                           ("id" . "green"))
+  "Associations between link type and foreground color desired.
+Should be a list of cons cells with the link type (excluding the colon) as the
+CAR and the foreground color as the CDR. Foreground color can be obtained using
+`M-x list-colors-display'."
+  :type '(repeat (cons :tag ""
+                       (string :tag "File type") (string :tag "Foreground color")))
+  :group 'org-link-colorize)
+
 (defun org-link-colorize--get-element (position)
   "Return the org element of link at the `POSITION'."
   (save-excursion
@@ -86,6 +108,9 @@
       (let* ((link-element (org-link-colorize--get-element start))
              (raw-link (org-element-property :raw-link link-element))
              (type (org-element-property :type link-element))
+             (desired-color (cdr (seq-find (lambda (k)
+                                             (equal (car k) type))
+                                           org-link-colorize-link-colors)))
              (description (or (and (org-element-property :contents-begin link-element) ; in raw link case, it's nil
                                    (buffer-substring-no-properties
                                     (org-element-property :contents-begin link-element)
@@ -97,9 +122,9 @@
          ((and (equal type "file") (not (file-exists-p path)))
           (org-link-colorize--add-overlay-marker start end)
           (org-link-colorize--display-not-exist start end description))
-         ((equal type "id")
+         (desired-color
           (org-link-colorize--add-overlay-marker start end)
-          (org-link-colorize--add-color start end description "blue"))
+          (org-link-colorize--add-color start end description desired-color))
          (t
           (org-link-colorize--add-overlay-marker start end)))))))
 
