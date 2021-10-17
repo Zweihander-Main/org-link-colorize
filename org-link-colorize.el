@@ -118,15 +118,11 @@ CAR and the foreground color as the CDR. Foreground color can be obtained using
                               ;; when description not exist, use raw link for raw link case.
                               raw-link)))
         (when bracket-p (ignore))
-        (cond
-         ((and (equal type "file") (not (file-exists-p path)))
-          (org-link-colorize--add-overlay-marker start end)
-          (org-link-colorize--display-not-exist start end description))
-         (desired-color
-          (org-link-colorize--add-overlay-marker start end)
+        (when desired-color
           (org-link-colorize--add-color start end description desired-color))
-         (t
-          (org-link-colorize--add-overlay-marker start end)))))))
+        (when (and (equal type "file") (not (file-exists-p path)))
+          (org-link-colorize--display-not-exist start end description))
+        (org-link-colorize--add-overlay-marker start end)))))
 
 ;;; hook on headline expand
 (defun org-link-colorize-headline-cycle (&optional state)
